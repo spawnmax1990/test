@@ -4,432 +4,451 @@
     <meta charset="utf-8">
     <title>Калькулятор by MAXimov</title>
     <style>
-      /*Общие параметры*/
-      body {
-        width:900px;
-        margin:auto;
+      li {
+        list-style-type: none;
+        width:25%;
       }
-      
+      ul {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      label,
+      button {
+        display: block;
+      }
+      label {
+        font-size: 35px;
+        padding-left: 40px;
+        position: relative;
+        transition: 0.5s;
+      }
       h1 {
-        text-align:center;
+        text-align: center;
+        font-size: 50px;
       }
-
-      .column1,
-      .column2,
-      .column3 {
-        float:left;
-        font-size: 1.5em;
-      }
-
-      .column2,
-      .column3 {
-        padding-left:50px;
-      }
-
-      .button {
-        clear:both;
-        padding-top:50px;
-      }
-
-      /*Кнопка*/
-      a.button7 {
+      legend {
         font-weight: bold;
-        color: white;
-        text-decoration: none;
-        padding: 1em 23.5em calc(.8em + 3px);
-        border-radius: 5px;
-        background: rgb(0,255,0);
-        box-shadow: 0 -3px rgb(0,180,0) inset;
-        transition: 0.2s;
+        text-align: center;
+        font-size: 35px;
       }
-
-      a.button7:hover {
-        background: rgb(0,180,0);
-      }
-
-      a.button7:active {
-        background: rgb(0,110,0);
-        box-shadow: 0 3px rgb(0,110,0) inset;
-      }
-
-      /*Чекбоксы*/
-      .checkbox input {
+      .visually-hidden {
         position: absolute;
-        z-index: -1;
-        opacity: 0;
-        margin: 10px 0 0 20px;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        border: 0;
+        padding: 0;
+        clip: rect(0 0 0 0);
+        overflow: hidden;
       }
-
-      .checkbox__text {
-        position: relative;
-        padding: 0 0 0 60px;
-        cursor: pointer;
+      fieldset {
+        border: 0px solid black;
       }
-
-      .checkbox__text:before {
-        content: '';
+      button {
+        background-color: white;
+        border: 2px solid black;
+        border-radius: 3px;
+        min-height: 100px;
+        min-width: 100%;
+        font-size: 50px;
+        font-family: inherit;
+        font-weight: bold;
+        transition: 0.5s;
+      }
+      li:last-child {
+        width: 100%;
+      }
+      .radio,
+      .check {
+        width: 30px;
+        height: 30px;
+        border: 2px solid lightgrey;
         position: absolute;
-        top: -4px;
         left: 0;
-        width: 50px;
-        height: 26px;
-        border-radius: 13px;
-        background: #ff0000;
-        box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
-        transition: .2s;
       }
-
-      .checkbox__text:after {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: 2px;
-        width: 22px;
-        height: 22px;
-        border-radius: 10px;
-        background: #FFF;
-        box-shadow: 0 2px 5px rgba(0,0,0,.3);
-        transition: .2s;
-      }
-
-      .checkbox input:checked + .checkbox__text:before {
-        background: #00ff00;
-      }
-
-      .checkbox input:checked + .checkbox__text:after {
-        left: 26px;
-      }
-
-      .checkbox input:focus + .checkbox__text:before {
-        box-shadow: inset 0 2px 3px rgba(0,0,0,.2), 0 0 0 3px rgba(255,255,0,.7);
-      }
-
-      /*Радиобаттоны*/
-      .radio input {
-        position: absolute;
-        z-index: -1;
-        opacity: 0;
-        margin: 10px 0 0 7px;
-      }
-
-      .radio__text {
-        position: relative;
-        padding: 0 0 0 35px;
-        cursor: pointer;
-      }
-
-      .radio__text:before {
-        content: '';
-        position: absolute;
-        top: -3px;
-        left: 0;
-        width: 22px;
-        height: 22px;
-        border: 1px solid #CDD1DA;
+      .radio {
+        top: 2px;
         border-radius: 50%;
-        background: #FFF;
+      }
+      .check {
+        top: 3px;
+      }
+      input:checked + .radio,
+      input:checked + .check {
+        border: 2px solid #00ff00;
+        background-color: #00ff00;
+        box-shadow: 0 0 0 3px white inset;
+      }
+      input:focus + .radio,
+      input:focus + .check {
+        box-shadow:
+          0 0 0 5px lightgreen,
+          0 0 0 3px white inset;
+      }
+      button:focus {
+        box-shadow: 0 0 0 5px lightgreen;
+      }
+      button:active {
+        background-color: lightgrey;
+        transition: 0.5s;
+      }
+      label:hover,
+      label:focus {
+        background-color: #c5cae9;
       }
 
-      .radio__text:after {
-        content: '';
-        position: absolute;
-        top: 1px;
-        left: 4px;
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        background: #00ff00;
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.5);
-        opacity: 0;
-        transition: .2s;
-      }
-
-      .radio input:checked + .radio__text:after {
-        opacity: 1;
-      }
-
-      .radio input:focus + .radio__text:before {
-        box-shadow: 0 0 0 3px rgba(255,255,0,.7);
+      @media screen and (max-width: 1080px) {
+        ul {
+          display: flex;
+          flex-direction: column;
+        }
+        li {
+          width: 100%;
+        }
+        h1 {
+          font-size: 65px;
+        }
+        legend,
+        label {
+          font-size: 55px;
+          padding-left: 70px;
+          padding-top: 40px;
+          box-sizing: border-box;
+          min-height: 150px;
+        }
+        label {
+          border-bottom: 1px solid lightgrey;
+        }
+        label:first-of-type {
+          border-top: 1px solid lightgrey;
+        }
+        label:active {
+          background-color: lightgrey;
+          transition: 0.5s;
+        }
+        .radio,
+        .check {
+          width: 40px;
+          height: 40px;
+          top: 48px;
+          left: 15px;
+        }
+        button {
+          min-height: 150px;
+          margin-bottom: 15px;
+          border: 0 solid black;
+          background-color: lightgrey;
+        }
+        button:active {
+          background-color: grey;
+        }
+        button:focus {
+          box-shadow: 0 0 0 0 white;
+          outline: none;
+        }
+        input:focus + .radio,
+        input:focus + .check {
+          box-shadow: 0 0 0 3px white inset;
+        }
       }
     </style>
   </head>
   <body>
+    <h1>Калькулятор Шиномонтажа</h1>
 
-<h1>Калькулятор Шиномонтажа</h1>
-<div class="column1">
+    <ul>
+      <li>
+        <fieldset>
 
-  <h2>Тип диска:</h2>
+          <legend>Тип диска:</legend>
 
-    <label class="radio">
-      <input type="radio" name="disk" value="штампы" checked>
-      <div class="radio__text">Штампованные диски</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="disk" value="штампы" checked>
+            <div class="radio"></div>Штампованные диски
+          </label>
 
-    <label class="radio">
-      <input type="radio" name="disk" value="литье">
-      <div class="radio__text">Литые диски</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="disk" value="литье">
+            <div class="radio"></div>Литые диски
+          </label>
 
-  <h2>Количество колес:</h2>
+        </fieldset>
+      </li>
 
-    <label class="radio">
-      <input type="radio" name="whell" value="4" checked>
-      <div class="radio__text">4 колеса</div>
-    </label>
+      <li>
+        <fieldset>
 
-    <label class="radio">
-      <input type="radio" name="whell" value="3">
-      <div class="radio__text">3 колеса</div>
-    </label>
+          <legend>Количество колес:</legend>
 
-    <label class="radio">
-      <input type="radio" name="whell" value="2">
-      <div class="radio__text">2 колеса</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="whell" value="4" checked>
+            <div class="radio"></div>4 колеса
+          </label>
 
-    <label class="radio">
-      <input type="radio" name="whell" value="1">
-      <div class="radio__text">1 колесо</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="whell" value="3">
+            <div class="radio"></div>3 колеса
+          </label>
 
-</div>
+          <label>
+            <input class="visually-hidden" type="radio" name="whell" value="2">
+            <div class="radio"></div>2 колеса
+          </label>
 
-<div class="column2">
+          <label>
+            <input class="visually-hidden" type="radio" name="whell" value="1">
+            <div class="radio"></div>1 колесо
+          </label>
 
-  <h2>Радиус колес:</h2>
+        </fieldset>
+      </li>
 
-    <label class="radio">
-      <input type="radio" name="radius" value="r13" checked>
-      <div class="radio__text">R12-13</div>
-    </label>
+      <li>
+        <fieldset>
 
-    <label class="radio">
-      <input type="radio" name="radius" value="r14">
-      <div class="radio__text">R14</div>
-    </label>
+          <legend>Радиус колес:</legend>
 
-    <label class="radio">
-      <input type="radio" name="radius" value="r15">
-      <div class="radio__text">R15</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="radius" value="r13" checked>
+              <div class="radio"></div>R12-13
+          </label>
 
-    <label class="radio">
-      <input type="radio" name="radius" value="r16">
-      <div class="radio__text">R16</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="radius" value="r14">
+            <div class="radio"></div>R14
+          </label>
 
-    <label class="radio">
-      <input type="radio" name="radius" value="r17">
-      <div class="radio__text">R17</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="radius" value="r15">
+            <div class="radio"></div>R15
+          </label>
 
-    <label class="radio">
-      <input type="radio" name="radius" value="r18">
-      <div class="radio__text">R18</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="radius" value="r16">
+            <div class="radio"></div>R16
+          </label>
 
-    <label class="radio">
-      <input type="radio" name="radius" value="r19">
-      <div class="radio__text">R19</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="radius" value="r17">
+            <div class="radio"></div>R17
+          </label>
 
-    <label class="radio">
-      <input type="radio" name="radius" value="r20">
-      <div class="radio__text">R20</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="radio" name="radius" value="r18">
+            <div class="radio"></div>R18
+          </label>
 
-</div>
+          <label>
+            <input class="visually-hidden" type="radio" name="radius" value="r19">
+            <div class="radio"></div>R19
+          </label>
 
-<div class="column3">
+          <label>
+            <input class="visually-hidden" type="radio" name="radius" value="r20">
+            <div class="radio"></div>R20
+          </label>
 
-  <h2>Шиномонтаж:</h2>
+        </fieldset>
+      </li>
 
-    <label class="checkbox">
-      <input type="checkbox" name="service" id="mon">
-      <div class="checkbox__text">Монтаж</div>
-    </label>
+      <li>
+        <fieldset>
 
-    <label class="checkbox">
-      <input type="checkbox" name="service" id="demon">
-      <div class="checkbox__text">Демонтаж</div>
-    </label>
+          <legend>Шиномонтаж:</legend>
 
-    <label class="checkbox">
-      <input type="checkbox" name="service" id="balans">
-      <div class="checkbox__text">Балансировка</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="checkbox" name="service" id="mon">
+            <div class="check"></div>Монтаж
+          </label>
 
-    <label class="checkbox">
-      <input type="checkbox" name="service" id="wash">
-      <div class="checkbox__text">Мойка</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="checkbox" name="service" id="demon">
+            <div class="check"></div>Демонтаж
+          </label>
 
-    <label class="checkbox">
-      <input type="checkbox" name="service" id="install">
-      <div class="checkbox__text">Сьём/Установка</div>
-    </label>
+          <label>
+            <input class="visually-hidden" type="checkbox" name="service" id="balans">
+            <div class="check"></div>Балансировка
+          </label>
 
-</div>
+          <label>
+            <input class="visually-hidden" type="checkbox" name="service" id="wash">
+            <div class="check"></div>Мойка
+          </label>
 
-<div class="button">
-  <a href="#" class="button7" id="amount">Я ЕСТЬ ГРУТ!</a>
-</div>
+          <label>
+            <input class="visually-hidden" type="checkbox" name="service" id="install">
+            <div class="check"></div>Сьём/Установка
+          </label>
 
-<script>
-  var pricelist = {
-    "mon" : { //цены монтаж
-         "штампы" : {
-             "r13": 40,
-             "r14": 45,
-             "r15": 50,
-             "r16": 60,
-             "r17": 70,
-             "r18": 80,
-             "r19": 90,
-             "r20": 100,
+        </fieldset>
+      </li>
+
+      <li>
+        <button type="button" id="amount">Я ЕСТЬ ГРУТ!!!</button>
+      </li>
+
+    </ul>
+
+    <script>
+      var pricelist = {
+        "mon" : { //цены монтаж
+             "штампы" : {
+                 "r13": 40,
+                 "r14": 45,
+                 "r15": 50,
+                 "r16": 60,
+                 "r17": 70,
+                 "r18": 80,
+                 "r19": 90,
+                 "r20": 100,
+             },
+             "литье" : {
+                 "r13": 50,
+                 "r14": 55,
+                 "r15": 60,
+                 "r16": 70,
+                 "r17": 80,
+                 "r18": 90,
+                 "r19": 100,
+                 "r20": 110,
+             },
+        },
+        "demon" : { //цены демонтаж
+             "штампы" : {
+                 "r13": 50,
+                 "r14": 55,
+                 "r15": 60,
+                 "r16": 70,
+                 "r17": 80,
+                 "r18": 90,
+                 "r19": 100,
+                 "r20": 110,
+             },
+             "литье" : {
+                 "r13": 60,
+                 "r14": 65,
+                 "r15": 70,
+                 "r16": 80,
+                 "r17": 90,
+                 "r18": 100,
+                 "r19": 110,
+                 "r20": 120,
+             },
+        },
+         "balans" : { // цены балансировка
+              "штампы" : {
+                  "r13": 50,
+                  "r14": 60,
+                  "r15": 70,
+                  "r16": 80,
+                  "r17": 90,
+                  "r18": 100,
+                  "r19": 110,
+                  "r20": 120,
+              },
+              "литье" : {
+                  "r13": 70,
+                  "r14": 80,
+                  "r15": 90,
+                  "r16": 100,
+                  "r17": 110,
+                  "r18": 120,
+                  "r19": 130,
+                  "r20": 140,
+              },
          },
-         "литье" : {
-             "r13": 50,
-             "r14": 55,
-             "r15": 60,
-             "r16": 70,
-             "r17": 80,
-             "r18": 90,
-             "r19": 100,
-             "r20": 110,
+         "wash" : { //цены мойка
+              "штампы" : {
+                  "r13": 30,
+                  "r14": 30,
+                  "r15": 35,
+                  "r16": 35,
+                  "r17": 35,
+                  "r18": 40,
+                  "r19": 40,
+                  "r20": 40,
+              },
+              "литье" : {
+                  "r13": 30,
+                  "r14": 30,
+                  "r15": 35,
+                  "r16": 35,
+                  "r17": 35,
+                  "r18": 40,
+                  "r19": 40,
+                  "r20": 40,
+              },
          },
-    },
-    "demon" : { //цены демонтаж
-         "штампы" : {
-             "r13": 50,
-             "r14": 55,
-             "r15": 60,
-             "r16": 70,
-             "r17": 80,
-             "r18": 90,
-             "r19": 100,
-             "r20": 110,
-         },
-         "литье" : {
-             "r13": 60,
-             "r14": 65,
-             "r15": 70,
-             "r16": 80,
-             "r17": 90,
-             "r18": 100,
-             "r19": 110,
-             "r20": 120,
-         },
-    },
-     "balans" : { // цены балансировка
-     			"штампы" : {
-          	 	"r13": 50,
-              "r14": 60,
-              "r15": 70,
-              "r16": 80,
-              "r17": 90,
-              "r18": 100,
-              "r19": 110,
-              "r20": 120,
-          },
-          "литье" : {
-          	 	"r13": 70,
-              "r14": 80,
-              "r15": 90,
-              "r16": 100,
-              "r17": 110,
-              "r18": 120,
-              "r19": 130,
-              "r20": 140,
-          },
-     },
-     "wash" : { //цены мойка
-     			"штампы" : {
-          	 	"r13": 30,
-              "r14": 30,
-              "r15": 35,
-              "r16": 35,
-              "r17": 35,
-              "r18": 40,
-              "r19": 40,
-              "r20": 40,
-          },
-          "литье" : {
-          	 	"r13": 30,
-              "r14": 30,
-              "r15": 35,
-              "r16": 35,
-              "r17": 35,
-              "r18": 40,
-              "r19": 40,
-              "r20": 40,
-          },
-     },
-     "install" : {  //цены сьем-установка
-     			"штампы" : {
-          	 	"r13": 40,
-              "r14": 40,
-              "r15": 50,
-              "r16": 50,
-              "r17": 50,
-              "r18": 60,
-              "r19": 60,
-              "r20": 60,
-          },
-          "литье" : {
-          	 	"r13": 40,
-              "r14": 40,
-              "r15": 50,
-              "r16": 50,
-              "r17": 50,
-              "r18": 60,
-              "r19": 60,
-              "r20": 60,
-          }
-     }
-  }
-
-  function Radio(a) { //забираем данные из RadioButton
-    for (var i=0;i<a.length;i++) {
-      if (a[i].checked) {
-        return a[i].value;
+         "install" : {  //цены сьем-установка
+              "штампы" : {
+                  "r13": 40,
+                  "r14": 40,
+                  "r15": 50,
+                  "r16": 50,
+                  "r17": 50,
+                  "r18": 60,
+                  "r19": 60,
+                  "r20": 60,
+              },
+              "литье" : {
+                  "r13": 40,
+                  "r14": 40,
+                  "r15": 50,
+                  "r16": 50,
+                  "r17": 50,
+                  "r18": 60,
+                  "r19": 60,
+                  "r20": 60,
+              }
+         }
       }
-    }
-  }
 
-  function Check(x) { //забираем данные из CheckBox
-    return (x.checked);
-  }
+      function Radio(a) { //забираем данные из RadioButton
+        for (var i=0;i<a.length;i++) {
+          if (a[i].checked) {
+            return a[i].value;
+          }
+        }
+      }
 
-function PriceEnd (x,a,b,c) { //получаем цену услуги
-  var price = 0;
-  if (x == true) {
-    price = pricelist[c][a][b];
-  }
-  return price;
-}
+      function Check(x) { //забираем данные из CheckBox
+        return (x.checked);
+      }
 
-document.getElementById('amount').onclick = Amount; //кнопка
+      function PriceEnd (x,a,b,c) { //получаем цену услуги
+        var price = 0;
+        if (x == true) {
+          price = pricelist[c][a][b];
+        }
+        return price;
+      }
 
-function Amount() {
-  //что выбрано в радиобаттон
-  var disk = Radio(document.getElementsByName('disk')); //какие диски
-  var whell = Radio(document.getElementsByName('whell')); //сколько колес
-  var radius = Radio(document.getElementsByName('radius')); //какой радиус
-  //выбран ли чекбокс
-  var mon = Check(document.getElementById('mon'));  //монтажа
-  var demon = Check(document.getElementById('demon'));  //демонтажа
-  var balans = Check(document.getElementById('balans'));  //балансировки
-  var wash = Check(document.getElementById('wash'));  //мойки
-  var install = Check(document.getElementById('install'));  //сьема-установки
+      document.getElementById('amount').onclick = Amount; //кнопка
 
-  amount = (PriceEnd(demon,disk,radius,"demon") + PriceEnd(mon,disk,radius,"mon")
-            + PriceEnd(balans,disk,radius,"balans") + PriceEnd(wash,disk,radius,"wash")
-            + PriceEnd(install,disk,radius,"install")) * whell;
+      function Amount() {
+        //что выбрано в радиобаттон
+        var disk = Radio(document.getElementsByName('disk')); //какие диски
+        var whell = Radio(document.getElementsByName('whell')); //сколько колес
+        var radius = Radio(document.getElementsByName('radius')); //какой радиус
+        //выбран ли чекбокс
+        var mon = Check(document.getElementById('mon'));  //монтажа
+        var demon = Check(document.getElementById('demon'));  //демонтажа
+        var balans = Check(document.getElementById('balans'));  //балансировки
+        var wash = Check(document.getElementById('wash'));  //мойки
+        var install = Check(document.getElementById('install'));  //сьема-установки
 
-    if (amount == 0) {alert("Ничего не сделал. Ничего не заработал!");}
-    else {alert("Сумма: " + amount + " рублей.");}
-}
+        amount = (PriceEnd(demon,disk,radius,"demon") + PriceEnd(mon,disk,radius,"mon")
+                  + PriceEnd(balans,disk,radius,"balans") + PriceEnd(wash,disk,radius,"wash")
+                  + PriceEnd(install,disk,radius,"install")) * whell;
+
+        if (amount == 0) {alert("Ничего не сделал. Ничего не заработал!");}
+        else {alert("Сумма: " + amount + " рублей.");}
+      }
+
     </script>
   </body>
 </html>
